@@ -24,7 +24,7 @@ function AdultDropdown() {
   return (
     <div className="w-full h-full bg-white relative">
       <button
-        className="w-full h-full flex items-center justify-between px-8 bg-white border border-gray-300 rounded-md"
+        className="w-full h-full flex items-center justify-between px-8 bg-white border"
         onClick={toggleDropdown}
       >
         {adults}
