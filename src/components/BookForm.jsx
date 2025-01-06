@@ -6,7 +6,7 @@ import KidsDropdown from './KidsDropdown'
 
 function BookForm() {
   return (
-    <form className='h-[300px] bg-pink-200 w-full lg:h-[70px]'>
+    <form className='h-[300px] w-full lg:h-[70px]'>
       <div className='flex flex-col w-full h-full lg:flex-row'>
         <div className='flex-1 border-r'>
           <CheckIn/>       
@@ -20,6 +20,7 @@ function BookForm() {
         <div className='flex-1 border-r'>
           <KidsDropdown/>       
         </div>
+        <button className='btn btn-primary' type='submit'>Check Now</button>
       </div>
       
     </form>

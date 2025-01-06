@@ -6,11 +6,11 @@ import Footer from '../components/Footer';
 function Guestlayout(props) {
   const {children} = props;
   return (
-    <>
+    <div>
     <Header/>
     {children}
     <Footer/>
-    </>
+    </div>
   )
 }
 
