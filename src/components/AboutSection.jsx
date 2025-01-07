@@ -44,14 +44,14 @@ export default function About() {
                         {imageDetails.map((image, index) => (
                             <div key={index} className="relative col-span-2 sm:col-span-1 group">
                                 <img
-                                    className="w-full h-full object-cover shadow-xl transform transition duration-500 group-hover:scale-105"
+                                    className="w-full h-full object-cover shadow-xl transform "
                                     src={image.src}
                                     alt={image.alt}
                                 />
                                 {/* Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-opacity duration-300"></div>
+                                <div className="absolute inset-0  "></div>
                                 {/* Text Overlay */}
-                                <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent text-white opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-opacity duration-300">
+                                <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <h3 className="text-lg font-semibold font-primary">{image.title}</h3>
                                     <p className="text-sm font-tertiary uppercase">{image.description}</p>
                                 </div>

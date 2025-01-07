@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import LogoWhite from '/assets/img/logo-white.svg'
-import LogoDark from '/assets/img/logo-dark.svg'
+import LogoWhite from '/assets/img/logo-light.png'
+import LogoDark from '/assets/img/logo-dark.png'
 import { use } from 'react';
 function Header() {
   const [header, setHeader] = useState(false);
