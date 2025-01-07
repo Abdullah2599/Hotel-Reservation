@@ -3,6 +3,7 @@ import Rooms from '../components/Rooms'
 import BookForm from '../components/BookForm'
 import HeroSlider from '../components/HeroSlider'
 import About from '../components/AboutSection';
+import Benefits from '../components/Benefits';
 
 function Home() {
   return (
@@ -15,7 +16,7 @@ function Home() {
       </div>
       </div>
       <About/>
-
+      <Benefits/>
       <Rooms/>
      
       </>

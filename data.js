@@ -17,7 +17,8 @@ import Room8Img from '/assets/img/rooms/8.png';
 import Room8ImgLg from '/assets/img/rooms/8-lg.png';
 // import icons
 
-import { FaBath, FaCocktail, FaCoffee, FaHotdog, FaHotel, FaParking, FaStopwatch, FaSwimmingPool, FaUsers, FaUsersCog, FaWifi } from "react-icons/fa";
+import { FaBath, FaClock, FaCloud, FaCocktail, FaCoffee, FaCogs, FaHotdog, FaHotel, FaLock, FaMobileAlt, FaParking, FaStopwatch, FaSwimmingPool, FaUsers, FaUsersCog, FaWifi } from "react-icons/fa";
+import { FaShield } from 'react-icons/fa6';
 
 
 export const about = [
@@ -37,6 +38,41 @@ export const about = [
     count: "5000",
   },
 ];
+
+
+export const benefits = [
+  {
+    icon: FaShield,
+    name: "Secure Booking",
+    description: "Safe and encrypted reservation process."
+  },
+  {
+    icon: FaMobileAlt,
+    name: "Mobile Optimized",
+    description: "Seamless experience across devices."
+  },
+  {
+    icon: FaCloud, 
+    name: "Cloud Storage",
+    description: "Reliable data backup and access."
+  },
+  {
+    icon: FaClock,
+    name: "Instant Confirmation",
+    description: "Immediate booking confirmation after payment."
+  },
+  {
+    icon: FaCogs,
+    name: "Automated Updates",
+    description: "Real-time updates and notifications."
+  },
+  {
+    icon: FaLock,
+    name: "Data Privacy",
+    description: "Compliant with data protection standards."
+  }
+];
+
 
 export const imageDetails = [
   {
