@@ -2,6 +2,7 @@ import React from 'react'
 import Rooms from '../components/Rooms'
 import BookForm from '../components/BookForm'
 import HeroSlider from '../components/HeroSlider'
+import About from '../components/AboutSection';
 
 function Home() {
   return (
@@ -13,7 +14,7 @@ function Home() {
       <BookForm/>
       </div>
       </div>
-
+      <About/>
 
       <Rooms/>
      

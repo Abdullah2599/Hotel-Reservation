@@ -17,8 +17,53 @@ import Room8Img from '/assets/img/rooms/8.png';
 import Room8ImgLg from '/assets/img/rooms/8-lg.png';
 // import icons
 
-import { FaBath, FaCocktail, FaCoffee, FaHotdog, FaParking, FaStopwatch, FaSwimmingPool, FaWifi } from "react-icons/fa";
+import { FaBath, FaCocktail, FaCoffee, FaHotdog, FaHotel, FaParking, FaStopwatch, FaSwimmingPool, FaUsers, FaUsersCog, FaWifi } from "react-icons/fa";
 
+
+export const about = [
+  {
+    icon: FaHotel,
+    text: "Rooms",
+    count: "125",
+  },
+  {
+    icon: FaUsers,
+    text: "Staffs",
+    count: "350",
+  },
+  {
+    icon: FaUsersCog,
+    text: "Clients",
+    count: "5000",
+  },
+];
+
+export const imageDetails = [
+  {
+    src: '/assets/img/about-1.jpg',
+    alt: 'Hotel Room',
+    title: 'Hotel Room',
+    description: 'A comfortable, spacious hotel room with modern amenities.'
+  },
+  {
+    src: '/assets/img/about-2.jpg',
+    alt: 'Hotel Room',
+    title: 'Hotel Room',
+    description: 'A comfortable, spacious hotel room with modern amenities.'
+  },
+  {
+    src: '/assets/img/about-3.jpg',
+    alt: 'Hotel Room',
+    title: 'Hotel Room',
+    description: 'A comfortable, spacious hotel room with modern amenities.'
+  },
+  {
+    src: '/assets/img/about-4.jpg',
+    alt: 'Hotel Room',
+    title: 'Hotel Room',
+    description: 'A comfortable, spacious hotel room with modern amenities.'
+  }
+];
 
 export const roomData = [
   {
