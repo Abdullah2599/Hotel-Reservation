@@ -28,7 +28,7 @@ const slides =[
 
 function HeroSlider() {
   return (
-   <Swiper modules={[EffectFade, Autoplay]} effect={'fade'} loop={true} autoplay={{delay: 3000, disableOnInteraction: false}} 
+   <Swiper modules={[EffectFade, Autoplay]} effect={'fade'} loop={true} autoplay={{delay: 5000, disableOnInteraction: false}} 
    className='heroSlider h-[600px] lg:h-[860px]'>
     {slides.map((slide, index) => {
       const {title, bg, btnText} = slide;

@@ -8,7 +8,7 @@ export default function About() {
             <div className="container mx-auto px-6">
                 <div className="flex flex-col lg:flex-row items-center gap-16">
                     <div className="w-full lg:w-1/2">
-                        <h6 className="text-primary text-lg font-semibold uppercase mb-4">About Us</h6>
+                        <h6 className="text-primary text-lg uppercase font-tertiary tracking-[6px] font-semibold mb-4">About Us</h6>
                         <h1 className="text-4xl font-extrabold font-tertiary text-primary mb-6">
                             Welcome to{" "}
                             <span className="text-accent font-tertiary">LuxuryStay</span>
