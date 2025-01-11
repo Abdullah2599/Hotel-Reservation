@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Guestlayout from './layouts/GuestLayouts'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
 
 
 
@@ -19,9 +21,9 @@ function App() {
      {/* Guest */}
      <Routes>
      <Route path="" element={<Guestlayout><Home/></Guestlayout>}/>
-     {/* <Route path="/login" element={<Guestlayout><Login/></Guestlayout>}/>
      <Route path="/signup" element={<Guestlayout><Signup/></Guestlayout>}/>
-     <Route path="/cart" element={<Guestlayout><Cart/></Guestlayout>}/>
+      <Route path="/login" element={<Login/>}/>
+    {/* <Route path="/cart" element={<Guestlayout><Cart/></Guestlayout>}/>
      <Route path="/about" element={<Guestlayout><About/></Guestlayout>}/> */}
      </Routes>
      </BrowserRouter>
