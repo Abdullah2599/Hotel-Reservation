@@ -6,7 +6,7 @@ function RoomDetails() {
   console.log(id);
   
   
-  const room = roomData.find((room) =>{ room.id === Number(id)});
+  const room = roomData.find((room) => room.id === Number(id));
   console.log(room);
 
   if(!room) {
@@ -35,7 +35,7 @@ function RoomDetails() {
             <div className='w-full h-full lg:w-[60%] px-6'>
                 <h2 className='h2'>Room Details</h2>
                 <p className='mb-8'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
-               <img className='mb-8' src='/assets/img/room-1.jpg'/>
+               <img className='mb-8' src='/assets/img/room.jpg'/>
                <div className='mt-12'>
                   <h3 className='h3 mb-3'>Room Facilities</h3>
                   <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
@@ -46,7 +46,7 @@ function RoomDetails() {
                       return (
                       <div key={index} className='flex items-center gap-x-3 flex-1'>
                         <div className='text-accent text-3xl'>
-                          {icon}
+                          <item.icon/>
                         </div>
                         <div className='text-base'>
                           {name}
