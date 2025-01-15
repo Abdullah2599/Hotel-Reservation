@@ -21,7 +21,7 @@ function Header() {
         <a href="/" className='hover:text-accent transition'>Home</a>
         <a href="/rooms" className='hover:text-accent transition'>Rooms</a>
         <a href="/facilities" className='hover:text-accent transition'>Facilities</a>
-        <a href="/contactus" className='hover:text-accent transition'>Contact us</a>
+        <a href="/contactus" className='hover:text-accent transition'>Contact</a>
         <a href="/login" className='hover:text-accent transition'>Login</a>
       </nav>
     </div>

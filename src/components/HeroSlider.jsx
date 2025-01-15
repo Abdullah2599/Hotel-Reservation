@@ -34,12 +34,12 @@ function HeroSlider() {
       const {title, bg, btnText} = slide;
       return( <SwiperSlide className='h-full relative flex justify-center 
       items-center' key={index} >
-         <div className='z-10 text-white text-center absolute top-1/3 left-1/2 -translate-x-1/2'>
-          <div className='uppercase font-tertiary tracking-[6px] mb-5'>
+         <div className='z-10 text-white text-center absolute top-1/3 left-1/2 -translate-x-1/2 '>
+          <div className='uppercase font-tertiary tracking-[6px] mb-5 animate-fadeInUp'>
             Discover
           </div>
           <h1 className='text-[32px] font-primary uppercase tracking-[2px] 
-          max-w-[920px] lg:text-[68px] leading-tight mb-6'>{title}</h1>
+          max-w-[920px] lg:text-[68px] leading-tight mb-6 animate-fadeInLeft'>{title}</h1>
           <button className='btn btn-lg btn-primary mx-auto'>{btnText}</button>
          </div>
          <div className='absolute top-0 w-full h-full'>
