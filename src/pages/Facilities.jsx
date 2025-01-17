@@ -2,7 +2,7 @@ export default function Facilities() {
   return (
 
     <div className="bg-black"><hr /><h1 className=" h-[260px] text-accent font-tertiary mt-12 pt-10 pb-10 animate-fadeInUp mt-28 mb-5 text-6xl uppercase text-center">
-      FACILITIES WE OFFER
+      FACILITIES WE OFFER 
     </h1><hr />
       <div className="flex flex-wrap justify-evenly items-center bg-white py-5 pb-12 pt-12">
         <div className="pl-4 sm:w-1/3">
