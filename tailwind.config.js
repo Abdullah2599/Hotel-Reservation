@@ -28,7 +28,7 @@ export default {
         },
       },
       backgroundImage: {
-        room: "url('./assets/img/room.jpg')",
+        room: "url('assets/img/room.jpg')",
       },
       keyframes: {
         fadeInLeft: {
