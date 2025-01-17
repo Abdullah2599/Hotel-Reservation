@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import RoomDetails from './pages/RoomDetails'
 import Facilities from './pages/Facilities'
 import Contact from './pages/Contact'
+import Checkout from './pages/Checkout'
 
 
 
@@ -29,6 +30,7 @@ function App() {
      <Route path="/room/:id" element={<Guestlayout><RoomDetails/></Guestlayout>}/>
      <Route path="/facilities" element={<Guestlayout><Facilities/></Guestlayout>}/>
      <Route path="/contactus" element={<Guestlayout><Contact/></Guestlayout>}/> 
+     <Route path="/checkout" element={<Guestlayout><Checkout/></Guestlayout>}/> 
      </Routes>
      </BrowserRouter>
     </>
