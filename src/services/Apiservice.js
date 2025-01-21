@@ -8,7 +8,7 @@ class ApiService {
       return response.data;
     } catch (error) {
       console.error('API GET Error: ', error);
-      throw error;  // Rethrow to handle in the component
+      throw error;  
     }
   }
 
@@ -18,6 +18,7 @@ class ApiService {
       const response = await axiosInstance.post(endpoint, data);
       return response.data;
     } catch (error) {
+      console.log(error.response.data);
       console.error('API POST Error: ', error);
       throw error;
     }

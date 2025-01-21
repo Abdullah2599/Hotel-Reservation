@@ -3,6 +3,7 @@ import * as Yup from 'yup'
 import backgroundImage from '/assets/img/ls.jpg';
 import bg from '/assets/img/bg.jpg'
 import React from 'react'
+import { apiService } from '../services/Apiservice';
 
 function Login() {
   return (
@@ -27,17 +28,17 @@ function Login() {
               password: Yup.string().required()
             })}
 
-            // onSubmit={async (values) => {              
-            //   const response = await authservice.login(values);
-            //   console.log(response);
+            onSubmit={async (values) => {              
+              const response = await apiService.postData('auth/login',values);
+              console.log(response);
 
-            //   if (response.result !== null) {
-            //     toast.success("Login successful!")
-            //     // reload
-            //     router('/', { replace: true });
-            //     window.location.reload();
-            //   }
-            // }}
+              if (response.result !== null) {
+                toast.success("Login successful!")
+                // reload
+                router('/', { replace: true });
+                window.location.reload();
+              }
+            }}
           >
             <Form action="#">
 
