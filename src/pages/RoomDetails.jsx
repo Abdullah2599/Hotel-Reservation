@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { roomData } from '../../data'
 import { useParams } from 'react-router-dom';
 import CheckIn from '../components/CheckIn'
@@ -9,10 +9,14 @@ import { FaCheck } from 'react-icons/fa';
 function RoomDetails() {
   const {id} = useParams();
   console.log(id);
+  const [room,setRoom]=useState();
   
-  
-  const room = roomData.find((room) => room.id === Number(id));
-  console.log(room);
+  useEffect(()=>{
+    const room = roomData.find((room) => room.id === Number(id));
+    setRoom(room);
+    console.log(room);
+    window.scrollTo(0, 0);
+  },[])
 
   if(!room) {
     return (
