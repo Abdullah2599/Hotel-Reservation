@@ -7,8 +7,8 @@ import AdultDropdown from '../components/AdultDropdown'
 import KidsDropdown from '../components/KidsDropdown'
 import { FaCheck } from 'react-icons/fa';
 function RoomDetails() {
-  const {id} = useParams();
-  console.log(id);
+  // const {id} = useParams();
+  // console.log(id);
   const [room,setRoom]=useState();
   
   useEffect(()=>{

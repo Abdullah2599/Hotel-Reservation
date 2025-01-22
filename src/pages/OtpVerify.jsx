@@ -1,46 +1,22 @@
-import { Field, Formik } from 'formik'
+import { Field, Formik ,Form} from 'formik'
 import React, { useState } from 'react'
 import bg from '/assets/img/bg.jpg'
 import { apiService } from '../services/Apiservice';
 import * as Yup from 'yup'
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAppContext } from '../App';
+import { CgFormatColor } from 'react-icons/cg';
+import {  useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function OtpVerify() {
     
-   // const navigate = useNavigate(); 
+   const navigate = useNavigate(); 
     const { tempdata } = useAppContext();
     console.log(tempdata);
     const { email, password } = tempdata; // Extract email from user data
     const [error, setError] = useState(null); // To track any errors
 
-    const handleOtpSubmit = async (values) => {
-        try {
-            // API request to verify OTP
-            const code = values.otp;
-            const response = await apiService.postData('auth/verifycode', code,);
-            
-            // If OTP is verified successfully
-            if (response.data && response.data.code === 200) {
-                // Optionally store token in localStorage or sessionStorage
-                //localStorage.setItem('token', response.data.token); // Assuming the token is returned
-                // Redirect user to login or protected page
-
-                toast.success('OTP verified successfully!');
-                const respons = await apiService.postData('auth/login', { email, password });
-                console.log(respons);
-  
-                if (response.result !== null) {
-                  toast.success("Login successful!")
-                  // reload
-                  //navigate('/');                
-                }
-            }
-        } catch (err) {
-            console.error('OTP Verification Error:', err);
-            setError('Invalid OTP or verification failed!');
-        }
-    };
     return (
         <div className="min-h-screen h-full w-full bg-no-repeat bg-cover py-40 bg-accent" style={{ backgroundImage: `url(${bg})` }}>
             <div className="container mx-auto">
@@ -58,19 +34,54 @@ function OtpVerify() {
                         </p>
                         <Formik
                             initialValues={{ otp: '' }}
-                            validate={values => {
-                                const errors = {};
-                                if (!values.otp) {
-                                    errors.otp = 'Required';
-                                }
-                                return errors;
-                            }
+                            // validate={values => {
+                            //     const errors = {};
+                            //     if (!values.otp) {
+                            //         errors.otp = 'Required';
+                            //     }
+                            //     return errors;
+                            // }
+                       // }
+                       onSubmit={async (values) => {
+                        try {
+                          const code = values.otp;
+                      
+                          // Verify OTP API call
+                          const verifyResponse = await axios.post('http://192.168.2.2:90/api/v1/auth/verifycode', { code });
+                      
+                          if (verifyResponse.data.message === 'user registered successfully') {
+                            console.log('OTP verified successfully:', verifyResponse.data);
+                      
+                            // Display success message
+                            toast.success('OTP verified successfully!');
+                      
+                            // Login API call
+                            const respons = await apiService.postData('auth/login', { email, password });
+                            console.log(respons);
+                            
+                            // Save token to localStorage
+                            localStorage.setItem('token', respons.token);
+                      
+                            // Redirect user to the home page
+                            navigate('/');
+                          } else {
+                            // Handle OTP verification failure
+                            setError(verifyResponse.data.message || 'OTP verification failed!');
+                            toast.error(verifyResponse.data.message || 'OTP verification failed!');
+                          }
+                        } catch (err) {
+                          console.error('Error during OTP verification or login:', err);
+                      
+                          // Display error message
+                          setError(err.response?.data?.message || 'An error occurred!');
+                          toast.error(err.response?.data?.message || 'An error occurred!');
                         }
-                        onSubmit={handleOtpSubmit}
+                      }}
+                      
                         >
-                            <form>
+                            <Form action='#'>
                                 <Field name="otp" type="text" placeholder="Enter OTP" className="w-full p-2 border border-gray-300 h-10 mb-4" />
-                                {/* {errors.otp && touched.otp && <p className="text-red-500">{errors.otp}</p>} */}
+                                {error && <p className="text-red-500">{error}</p>}
 
                                 <button type="submit" className="btn btn-secondary w-full h-10 hover:bg-primary-dark transition duration-300">
                                     Verify
@@ -79,7 +90,7 @@ function OtpVerify() {
                                 <p className="text-center text-white mt-4">
                                     Forgot OTP? <a href="#" className="text-primary hover:text-primary-dark">Resend</a>
                                 </p>
-                            </form>
+                            </Form>
                         </Formik>
 
                     </div>

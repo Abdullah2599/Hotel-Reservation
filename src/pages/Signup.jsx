@@ -59,6 +59,7 @@ function Signup() {
                     toast.success('Account created!');
                    // router('/otp', {data: {email: values.email}});
                     setTempData({ email: values.email, password: values.password });
+                  //  localStorage.setItem('tempdata', JSON.stringify({ email: values.email, password: values.password }));
                     router('/otp');
                   }
                 } catch (err) {

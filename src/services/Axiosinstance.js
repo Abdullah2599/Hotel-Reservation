@@ -4,7 +4,7 @@ const url = import.meta.env.VITE_API_URL
 // Create Axios instance with default settings
 console.log(url);
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.18.23:90/api/v1/',  // Replace with your base API URL
+  baseURL: 'http://192.168.2.2:90/api/v1/',  // Replace with your base API URL
   headers: {
     'Content-Type': 'application/json',
   },
