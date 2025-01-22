@@ -54,7 +54,7 @@ function Signup() {
                 try {
                   const response = await apiService.postData('auth/register', data);
                   console.log(response);          
-                  if (response.result !== null) {
+                  if (response.message === 'generate code successfully') {
                     setError(null);
                     toast.success('Account created!');
                    // router('/otp', {data: {email: values.email}});

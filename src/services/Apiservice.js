@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import axiosInstance from './Axiosinstance';
 
 class ApiService {
@@ -20,6 +21,7 @@ class ApiService {
     } catch (error) {
       console.log(error.response.data);
       console.error('API POST Error: ', error);
+      toast.error(error.message);
       throw error;
     }
   }

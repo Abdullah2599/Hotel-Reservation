@@ -47,10 +47,11 @@ function OtpVerify() {
                           const code = values.otp;
                       
                           // Verify OTP API call
-                          const verifyResponse = await axios.post('http://192.168.2.2:90/api/v1/auth/verifycode', { code });
+                        // const verifyResponse = await axios.post('http://192.168.2.2:90/api/v1/auth/verifycode', { code });
+                        const verifyResponse = await apiService.postData('auth/verifycode', { code });
                       
-                          if (verifyResponse.data.message === 'user registered successfully') {
-                            console.log('OTP verified successfully:', verifyResponse.data);
+                          if (verifyResponse.message === 'user registered successfully') {
+                            console.log('OTP verified successfully:', verifyResponse.message);
                       
                             // Display success message
                             toast.success('OTP verified successfully!');
@@ -66,15 +67,15 @@ function OtpVerify() {
                             navigate('/');
                           } else {
                             // Handle OTP verification failure
-                            setError(verifyResponse.data.message || 'OTP verification failed!');
-                            toast.error(verifyResponse.data.message || 'OTP verification failed!');
+                            setError(verifyResponse.message || 'OTP verification failed!');
+                            toast.error(verifyResponse.message || 'OTP verification failed!');
                           }
                         } catch (err) {
                           console.error('Error during OTP verification or login:', err);
                       
                           // Display error message
-                          setError(err.response?.data?.message || 'An error occurred!');
-                          toast.error(err.response?.data?.message || 'An error occurred!');
+                          setError(err.response?.message || 'An error occurred!');
+                          toast.error(err.response?.message || 'An error occurred!');
                         }
                       }}
                       
