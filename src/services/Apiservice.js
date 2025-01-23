@@ -9,6 +9,13 @@ class ApiService {
       return response.data;
     } catch (error) {
       console.error('API GET Error: ', error);
+      if (!error.response) {
+        // If there is no response, it might be a server crash or network issue
+        toast.error("Server is down or there is a network issue. Please try again later.");
+      } else {
+        // Handle specific HTTP errors
+        toast.error(`Error: ${error.response.status} - ${error.response.data.message || error.message}`);
+      }
       throw error;  
     }
   }
@@ -19,9 +26,14 @@ class ApiService {
       const response = await axiosInstance.post(endpoint, data);
       return response.data;
     } catch (error) {
-      console.log(error.response.data);
       console.error('API POST Error: ', error);
-      toast.error(error.message);
+      if (!error.response) {
+        // If there is no response, it might be a server crash or network issue
+        toast.error("Server is down or there is a network issue. Please try again later.");
+      } else {
+        // Handle specific HTTP errors
+        toast.error(`Error: ${error.response.status} - ${error.response.data.message || error.message}`);
+      }
       throw error;
     }
   }
@@ -33,6 +45,11 @@ class ApiService {
       return response.data;
     } catch (error) {
       console.error('API PUT Error: ', error);
+      if (!error.response) {
+        toast.error("Server is down or there is a network issue. Please try again later.");
+      } else {
+        toast.error(`Error: ${error.response.status} - ${error.response.data.message || error.message}`);
+      }
       throw error;
     }
   }
@@ -44,6 +61,11 @@ class ApiService {
       return response.data;
     } catch (error) {
       console.error('API DELETE Error: ', error);
+      if (!error.response) {
+        toast.error("Server is down or there is a network issue. Please try again later.");
+      } else {
+        toast.error(`Error: ${error.response.status} - ${error.response.data.message || error.message}`);
+      }
       throw error;
     }
   }
