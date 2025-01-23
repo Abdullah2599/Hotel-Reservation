@@ -12,6 +12,8 @@ import { apiService } from './services/Apiservice'
 import { jwtDecode } from 'jwt-decode'
 import { ToastContainer } from 'react-toastify'
 import OtpVerify from './pages/OtpVerify'
+import Rooms from './components/Rooms'
+import AllRooms from './pages/AllRooms'
 
 const AppContext = createContext();
 
@@ -27,30 +29,35 @@ function App() {
   const [userDetail,setUserDetail] = useState( localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : {} )
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   // const fetchData = async () => {
-  //   //   try {
-  //   //     const result = await apiService.getData('/products');  // Replace with your API endpoint
-  //   //     setData(result);
-  //   //     console.log(result);
-  //   //   } catch (err) {
-  //   //     setError('Error fetching data');
-  //   //   } finally {
-  //   //     setLoading(false);
-  //   //   }
-  //   // };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await apiService.getData('room/list');  // Replace with your API endpoint
+        setData(result);
+       // console.log(result);
+      } catch (err) {
+        setError('Error fetching data');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   // fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
-  // if (loading) return <div>Loading...</div>;
-  // if (error) return <div>{error}</div>;
+  if (loading) return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32"></div>
+    </div>
+  );
+  if (error) return <div>{error}</div>;
 
   return (
     <>
     <ToastContainer />
-    <AppContext.Provider value={{ tempdata, setTempData, isLogin, setIsLogin, userDetail, setUserDetail, loading, error }}>
+    <AppContext.Provider value={{ tempdata, setTempData, isLogin, setIsLogin, userDetail, setUserDetail, loading, error, data }}>
       <BrowserRouter>
         {/* Auth */}
         <Routes>
@@ -64,6 +71,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/otp" element={<OtpVerify />} />
           <Route path="/room/:id" element={<Guestlayout><RoomDetails /></Guestlayout>} />
+          <Route path="/rooms" element={<Guestlayout><AllRooms /></Guestlayout>} />
           <Route path="/facilities" element={<Guestlayout><Facilities /></Guestlayout>} />
           <Route path="/contactus" element={<Guestlayout><Contact /></Guestlayout>} />
           <Route path="/checkout" element={<Guestlayout><Checkout /></Guestlayout>} />

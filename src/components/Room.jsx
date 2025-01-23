@@ -3,11 +3,12 @@ import { BsArrowsFullscreen, BsPeople } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
 function Room({room}) {
+  const baseURL = import.meta.env.VITE_API_URL
+  const cleanedBaseURL = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL;
   return (
     <div className='bg-white shadow-2xl min-h-[500px] group '>
       <div className='overflow-hidden'>
-      <img className='group-hover:scale-110 transition-all duration-300 w-full' src={room.image} alt="room" />
-
+      <img className='group-hover:scale-110 transition-all duration-300 w-full' src={cleanedBaseURL + room.image} alt="room" />
       </div>
       {/* DETAILS */}
       <div className='bg-white shadow-lg max-w-[300] mx-7 h-[60px] -translate-y-1/2 flex 
@@ -28,18 +29,18 @@ function Room({room}) {
             </div>
             <div className='flex gap-x-1'>
             <div className='ml-2'>Max People</div>
-            <div className='ml-2'>{room.maxPerson}</div>
+            <div className='ml-2'>{room.person}</div>
             </div>
           </div>
         </div>
       </div>
       <div className='text-center'>
         <Link to={`/room/${room.id}`}>
-          <h3 className='h3'>{room.name}</h3>
+          <h3 className='h3'>{room.roomTitle}</h3>
         </Link>
         <p className='max-w-[300px] mx-auto mb-3 lg:mb-6'>{room.description.slice(0, 56)}</p>
       </div>
-      <Link to={`/room/${room.id}`}  className='btn btn-secondary btn-sm max-w-[240px] mx-auto'>Book now from ${room.price}</Link>
+      <Link to={`/room/${room.roomCode}`}  className='btn btn-secondary btn-sm max-w-[240px] mx-auto'>Book now from ${room.price}</Link>
     </div>
   )
 }

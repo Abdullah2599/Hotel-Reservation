@@ -6,17 +6,37 @@ import CheckOut from '../components/CheckOut'
 import AdultDropdown from '../components/AdultDropdown'
 import KidsDropdown from '../components/KidsDropdown'
 import { FaCheck } from 'react-icons/fa';
+import { apiService } from '../services/Apiservice';
 function RoomDetails() {
-  // const {id} = useParams();
-  // console.log(id);
+  const baseURL = import.meta.env.VITE_API_URL
+  const cleanedBaseURL = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL;
+  const {id} = useParams();
+  //console.log(id);
+  const [loading, setLoading] = useState(true);
   const [room,setRoom]=useState();
   
-  useEffect(()=>{
-    const room = roomData.find((room) => room.id === Number(id));
-    setRoom(room);
-    console.log(room);
-    window.scrollTo(0, 0);
-  },[])
+  useEffect(() => {
+    async function fetchData() {
+      window.scrollTo(0, 0); 
+      // const room = roomData.find((room) => room.id === Number(id));
+    // setRoom(room);
+      try {
+        const response = await apiService.getData(`room/record/${id}`);
+        setRoom(response.roomdata); // Set the room data
+      } catch (error) {
+        console.error('Error fetching room data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, [id]); 
+
+  if (loading) return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32"></div>
+    </div>
+  );
 
   if(!room) {
     return (
@@ -30,13 +50,16 @@ function RoomDetails() {
       </section>
     )
   }
+
+
+
   const { facilities} = room;
   return (
     <section>
-     <div className="bg-cover bg-center h-[560px] relative flex justify-center items-center" style={{ backgroundImage: `url(${room.imageLg})` }}>
+     <div className="bg-cover bg-center h-[560px] relative flex justify-center items-center" style={{ backgroundImage: `url(${cleanedBaseURL + room.imagelg})` }}>
         <div className='absolute top-0 w-full h-full bg-black/70'></div>
         <h1 className='text-6xl text-white z-20 font-primary text-center'>
-            {room.name}
+            {room.roomTitle}
         </h1>
       </div>
       <div className='container mx-auto'>
@@ -44,13 +67,13 @@ function RoomDetails() {
             <div className='w-full h-full lg:w-[60%] px-6'>
                 <h2 className='h2'>Room Details</h2>
                 <p className='mb-8'>{room.description}</p>
-               <img className='mb-8 shadow-xl' src={room.imageLg}/>
+               <img className='mb-8 shadow-xl' src={cleanedBaseURL + room.image}/>
                <div className='mt-12'>
                   <h3 className='h3 mb-3'>Room Facilities</h3>
                   <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
                   <div>
                     <div className='grid grid-cols-3 gap-6 mb-12'>
-                    {facilities.map((item, index) => {
+                    {/* {facilities.map((item, index) => {
                         const {icon, name} = item;
                       return (
                       <div key={index} className='flex items-center gap-x-3 flex-1'>
@@ -61,7 +84,7 @@ function RoomDetails() {
                           {name}
                         </div>
                       </div>);
-                      })}
+                      })} */}
                       </div>
                   </div>
                </div>
