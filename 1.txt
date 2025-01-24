@@ -1,0 +1,24 @@
+http://192.168.2.2:90/api/v1/room/listbyfilter
+
+{
+  "valid_to": "2025-01-29T00:00:00.000Z",
+  "valid_from": "2025-01-29T00:00:00.000Z",
+  "person":"7"
+}
+
+http://192.168.2.2:90/api/v1/booking/create
+
+{
+  "room":"6791fee24b20d003e19347a2",
+  "valid_to": "2025-01-25",
+  "valid_from": "2025-01-29",
+  "person":"7",
+  "service":[]
+}
+
+http://192.168.2.2:90/api/v1/room/list
+
+{
+  "email": "abdullahcloudupload@gmail.com",
+  "password": "Putit123@"
+}
