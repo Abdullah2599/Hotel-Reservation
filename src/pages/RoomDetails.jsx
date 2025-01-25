@@ -8,7 +8,7 @@ import KidsDropdown from '../components/KidsDropdown'
 import { FaCheck } from 'react-icons/fa';
 import { apiService } from '../services/Apiservice';
 function RoomDetails() {
-  const baseURL = import.meta.env.VITE_API_URL
+  const baseURL = import.meta.env.VITE_API_IMAGE
   const cleanedBaseURL = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL;
   const {id} = useParams();
   //console.log(id);
@@ -56,7 +56,7 @@ function RoomDetails() {
   const { facilities} = room;
   return (
     <section>
-     <div className="bg-cover bg-center h-[560px] relative flex justify-center items-center" style={{ backgroundImage: `url(${cleanedBaseURL + room.imagelg})` }}>
+     <div className="bg-cover bg-center h-[560px] relative flex justify-center items-center" style={{ backgroundImage: `url(${baseURL + room.imagelg})` }}>
         <div className='absolute top-0 w-full h-full bg-black/70'></div>
         <h1 className='text-6xl text-white z-20 font-primary text-center'>
             {room.roomTitle}
@@ -67,7 +67,7 @@ function RoomDetails() {
             <div className='w-full h-full lg:w-[60%] px-6'>
                 <h2 className='h2'>Room Details</h2>
                 <p className='mb-8'>{room.description}</p>
-               <img className='mb-8 shadow-xl' src={cleanedBaseURL + room.image}/>
+               <img className='mb-8 shadow-xl' src={`${baseURL+room.image}`}/>
                <div className='mt-12'>
                   <h3 className='h3 mb-3'>Room Facilities</h3>
                   <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
