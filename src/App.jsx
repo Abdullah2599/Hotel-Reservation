@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify'
 import OtpVerify from './pages/OtpVerify'
 import Rooms from './components/Rooms'
 import AllRooms from './pages/AllRooms'
+import DRooms from './pages/DisplayRooms'
 
 const AppContext = createContext();
 
@@ -30,6 +31,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +59,7 @@ function App() {
   return (
     <>
     <ToastContainer />
-    <AppContext.Provider value={{ tempdata, setTempData, isLogin, setIsLogin, userDetail, setUserDetail, loading, error, data }}>
+    <AppContext.Provider value={{ tempdata, setTempData, isLogin, setIsLogin, userDetail, setUserDetail, loading, error, data, rooms, setRooms }}>
       <BrowserRouter>
         {/* Auth */}
         <Routes>
@@ -72,6 +74,7 @@ function App() {
           <Route path="/otp" element={<OtpVerify />} />
           <Route path="/room/:id" element={<Guestlayout><RoomDetails /></Guestlayout>} />
           <Route path="/rooms" element={<Guestlayout><AllRooms /></Guestlayout>} />
+          <Route path="/allrooms" element={<Guestlayout><DRooms /></Guestlayout>} />
           <Route path="/facilities" element={<Guestlayout><Facilities /></Guestlayout>} />
           <Route path="/contactus" element={<Guestlayout><Contact /></Guestlayout>} />
           <Route path="/checkout" element={<Guestlayout><Checkout /></Guestlayout>} />

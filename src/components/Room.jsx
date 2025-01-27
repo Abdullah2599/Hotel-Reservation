@@ -4,12 +4,10 @@ import { Link } from 'react-router-dom'
 
 function Room({room}) {
   const baseURL = import.meta.env.VITE_API_IMAGE
-  const cleanedBaseURL = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL;
-  console.log(cleanedBaseURL + room.image);
   return (
     <div className='bg-white shadow-2xl min-h-[500px] group '>
       <div className='overflow-hidden'>
-      <img className='group-hover:scale-110 transition-all duration-300 w-full' src={`${baseURL+room.image}`} alt="room" />
+      <img className='group-hover:scale-110 transition-all duration-300 w-full h-[250px] ' src={`${baseURL+room.image}`} alt="room" />
       </div>
       {/* DETAILS */}
       <div className='bg-white shadow-lg max-w-[300] mx-7 h-[60px] -translate-y-1/2 flex 

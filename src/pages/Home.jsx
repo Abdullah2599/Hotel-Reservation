@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Rooms from '../components/Rooms'
 import BookForm from '../components/BookForm'
 import HeroSlider from '../components/HeroSlider'
@@ -6,6 +6,9 @@ import About from '../components/AboutSection';
 import Benefits from '../components/Benefits';
 
 function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       < HeroSlider/>

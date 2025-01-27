@@ -6,7 +6,7 @@ import { useAppContext } from '../App';
 
 function Rooms() {
   const { data } = useAppContext();
-  console.log(data);
+  //console.log(data);
   return (
     <section className='py-24'>
       <div className='container mx-auto lg:px-0'>

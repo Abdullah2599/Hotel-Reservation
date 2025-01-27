@@ -13,7 +13,7 @@ function CheckOut({endDate, setEndDate }) {
            <BsCalendar className='text-accent text-base' />
          </div>
        </div>
-       <DatePicker className='w-full h-full' selected={endDate} placeholderText='Check Out' onChange={(date) => setEndDate(date)} />
+       <DatePicker className='w-full h-full' selected={endDate} placeholderText='Check Out' onChange={setEndDate} />
      </div>
    )
 }

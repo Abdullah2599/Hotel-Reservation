@@ -6,6 +6,7 @@ import { BsCalendar } from 'react-icons/bs'
 
 function CheckIn({ startDate, setStartDate }) {
   // const [startDate, setStartDate] = useState(false)
+//  console.log(startDate)
   return (
       <div className='relative flex items-center justify-end h-full'>
         <div className='absolute z-10 pr-8'>
@@ -15,7 +16,7 @@ function CheckIn({ startDate, setStartDate }) {
         </div>
         <DatePicker className='w-full h-full'
           selected={startDate} placeholderText='Check In'
-          onChange={(date) => setStartDate(date)} />
+          onChange={setStartDate}  />
       </div>
 
   )
