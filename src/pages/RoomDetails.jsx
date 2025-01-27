@@ -72,6 +72,11 @@ function RoomDetails() {
             <p className='mb-8'>{room.description}</p>
             <img className='mb-8 shadow-xl' src={`${baseURL + room.image}`} />
             <div className='mt-12'>
+              <div className="mt-2 mb-4 text-gray-700">
+                <span className="font-semibold font-primary h3 text-lg text-black text-4xl">Price per Day:</span>
+                <span className="text-red-500 font-bold font-primary text-xl pl-1">${room.price}</span>
+              </div>
+
               <h3 className='h3 mb-3'>Room Facilities</h3>
               <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
               <div>
@@ -97,21 +102,26 @@ function RoomDetails() {
               <div className='flex flex-col space-y-4 mb-4'>
                 <h3 className='h3 mb-3'>Your Reservation</h3>
                 <div className='h-[60px]'>
-                <CheckIn startDate={checkInDate} setStartDate={setCheckInDate} />
+                  <CheckIn startDate={checkInDate} setStartDate={setCheckInDate} />
+                  {/* <div>Price Per Day:{room.price}</div> */}
                 </div>
                 <div className='h-[60px]'>
-                <CheckOut endDate={checkOutDate} setEndDate={setCheckOutDate} />
+                  <CheckOut endDate={checkOutDate} setEndDate={setCheckOutDate} />
+                  {/* <div>Selected Check In Date: 1/25/25</div> */}
                 </div>
                 <div className='h-[60px]'>
-                <AdultDropdown value={adults} setValue={setAdults} />
+                  <AdultDropdown value={adults} setValue={setAdults} />
+                  {/* <div>Selected Check Out Date: 1/28/25</div> */}
                 </div>
                 <div className='h-[60px]'>
-                <KidsDropdown value={kids} setValue={setKids} />
+                  <KidsDropdown value={kids} setValue={setKids} />
+
                 </div>
               </div>
               <button className='btn btn-primary btn-lg w-full'>Book Now</button>
 
             </div>
+
             <div>
               <h3 className='h3 mb-3'>Hotel Rules</h3>
               <p className='mb-6'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
