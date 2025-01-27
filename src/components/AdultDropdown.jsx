@@ -1,52 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BsChevronDown } from 'react-icons/bs';
 
-const lis = [
-  { name: '1 Adult' },
-  { name: '2 Adults' },
-  { name: '3 Adults' },
-  { name: '4 Adults' },
-];
-
-function AdultDropdown() {
-  const [adults, setAdults] = useState('1 Adult');
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = (event) => {
-    event.preventDefault();
-    setIsOpen(!isOpen);}
-
-  const handleSelect = (name) => {
-    setAdults(name);
-    setIsOpen(false);
-  };
+function AdultDropdown({value, setValue}) {
 
   return (
     <div className="w-full h-full bg-white relative">
-      <button
-        className="w-full h-full flex items-center justify-between px-8 bg-white border"
-        onClick={toggleDropdown}
+      <select
+        className="w-full h-full flex items-center justify-between px-8 bg-white appearance-none selection:text-accent focus:outline-none focus:border-none"
+        value={value}
+        onChange={(e) => setValue(parseInt(e.target.value, 10))}
       >
-        {adults}
-        <BsChevronDown
-          className={`text-base text-accent-hover transform transition-transform ${
-            isOpen ? 'rotate-180' : 'rotate-0'
-          }`}
-        />
-      </button>
-      {isOpen && (
-        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg mt-1">
-          {lis.map((li, index) => (
-            <li
-              key={index}
-              className="border-b last-of-type:border-b-0 h-10 bg-white hover:bg-accent hover:text-white w-full flex justify-center items-center cursor-pointer"
-              onClick={() => handleSelect(li.name)}
-            >
-              {li.name}
-            </li>
-          ))}
-        </ul>
-      )}
+        {[1, 2, 3, 4, 5].map((num) => (
+          <option key={num} value={num}
+           className="bg-hover text-black focus-ring-0"
+          >
+            {num} {num === 1 ? 'Adult' : 'Adults'}
+          </option>
+        ))}
+      </select>
+      <BsChevronDown
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-accent mr-4"
+      />
     </div>
   );
 }

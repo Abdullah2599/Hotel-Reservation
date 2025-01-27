@@ -10,16 +10,19 @@ import { apiService } from '../services/Apiservice';
 function RoomDetails() {
   const baseURL = import.meta.env.VITE_API_IMAGE
   const cleanedBaseURL = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL;
-  const {id} = useParams();
+  const { id } = useParams();
   //console.log(id);
   const [loading, setLoading] = useState(true);
-  const [room,setRoom]=useState();
-  
+  const [room, setRoom] = useState();
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [adults, setAdults] = useState(1);
+  const [kids, setKids] = useState('');
   useEffect(() => {
     async function fetchData() {
-      window.scrollTo(0, 0); 
+      window.scrollTo(0, 0);
       // const room = roomData.find((room) => room.id === Number(id));
-    // setRoom(room);
+      // setRoom(room);
       try {
         const response = await apiService.getData(`room/record/${id}`);
         setRoom(response.roomdata); // Set the room data
@@ -30,7 +33,7 @@ function RoomDetails() {
       }
     }
     fetchData();
-  }, [id]); 
+  }, [id]);
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-screen">
@@ -38,13 +41,13 @@ function RoomDetails() {
     </div>
   );
 
-  if(!room) {
+  if (!room) {
     return (
       <section>
         <div className='bg-room bg-cover bg-center h-[560px] relative flex justify-center items-center'>
           <div className='absolute top-0 w-full h-full bg-black/70'></div>
           <h1 className='text-6xl text-white z-20 font-primary text-center'>
-              Room Not Found
+            Room Not Found
           </h1>
         </div>
       </section>
@@ -53,27 +56,27 @@ function RoomDetails() {
 
 
 
-  const { facilities} = room;
+  const { facilities } = room;
   return (
     <section>
-     <div className="bg-cover bg-center h-[560px] relative flex justify-center items-center" style={{ backgroundImage: `url(${baseURL + room.imagelg})` }}>
+      <div className="bg-cover bg-center h-[560px] relative flex justify-center items-center" style={{ backgroundImage: `url(${baseURL + room.imagelg})` }}>
         <div className='absolute top-0 w-full h-full bg-black/70'></div>
         <h1 className='text-6xl text-white z-20 font-primary text-center'>
-            {room.roomTitle}
+          {room.roomTitle}
         </h1>
       </div>
       <div className='container mx-auto'>
         <div className='flex flex-col lg:flex-row py-24'>
-            <div className='w-full h-full lg:w-[60%] px-6'>
-                <h2 className='h2'>Room Details</h2>
-                <p className='mb-8'>{room.description}</p>
-               <img className='mb-8 shadow-xl' src={`${baseURL+room.image}`}/>
-               <div className='mt-12'>
-                  <h3 className='h3 mb-3'>Room Facilities</h3>
-                  <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
-                  <div>
-                    <div className='grid grid-cols-3 gap-6 mb-12'>
-                    {/* {facilities.map((item, index) => {
+          <div className='w-full h-full lg:w-[60%] px-6'>
+            <h2 className='h2'>Room Details</h2>
+            <p className='mb-8'>{room.description}</p>
+            <img className='mb-8 shadow-xl' src={`${baseURL + room.image}`} />
+            <div className='mt-12'>
+              <h3 className='h3 mb-3'>Room Facilities</h3>
+              <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
+              <div>
+                <div className='grid grid-cols-3 gap-6 mb-12'>
+                  {/* {facilities.map((item, index) => {
                         const {icon, name} = item;
                       return (
                       <div key={index} className='flex items-center gap-x-3 flex-1'>
@@ -85,53 +88,53 @@ function RoomDetails() {
                         </div>
                       </div>);
                       })} */}
-                      </div>
-                  </div>
-               </div>
-            </div>
-            <div className='w-full h-full lg:w-[40%] px-6'>
-               <div className='py-8 px-6 bg-accent/20 mb-12'>
-                <div className='flex flex-col space-y-4 mb-4'>
-                  <h3 className='h3 mb-3'>Your Reservation</h3>
-                  <div className='h-[60px]'>
-                    <CheckIn />
-                  </div>
-                  <div className='h-[60px]'>
-                    <CheckOut />
-                  </div>
-                  <div className='h-[60px]'>
-                    <AdultDropdown />
-                  </div>
-                  <div className='h-[60px]'>
-                    <KidsDropdown />
-                  </div>
                 </div>
-                  <button className='btn btn-primary btn-lg w-full'>Book Now</button>
- 
-               </div>
-               <div>
-                <h3 className='h3 mb-3'>Hotel Rules</h3>
-                <p className='mb-6'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
-               <ul className='flex flex-col gap-y-4'>
-                 <li className='flex items-center gap-x-4'>
-                  <FaCheck className='text-accent'/>
-                    Check-in: 10:00PM
-                 </li>
-                 <li className='flex items-center gap-x-4'>
-                  <FaCheck className='text-accent'/>
-                    Check-out: 3:00 PM - 9:00PM
-                 </li>
-                 <li className='flex items-center gap-x-4'>
-                  <FaCheck className='text-accent'/>
-                    Check-in: 3:00 PM - 9:00PM
-                 </li>
-                 <li className='flex items-center gap-x-4'>
-                  <FaCheck className='text-accent'/>
-                    Check-in: 3:00 PM - 9:00PM
-                 </li>
-               </ul>
-               </div>
+              </div>
             </div>
+          </div>
+          <div className='w-full h-full lg:w-[40%] px-6'>
+            <div className='py-8 px-6 bg-accent/20 mb-12'>
+              <div className='flex flex-col space-y-4 mb-4'>
+                <h3 className='h3 mb-3'>Your Reservation</h3>
+                <div className='h-[60px]'>
+                <CheckIn startDate={checkInDate} setStartDate={setCheckInDate} />
+                </div>
+                <div className='h-[60px]'>
+                <CheckOut endDate={checkOutDate} setEndDate={setCheckOutDate} />
+                </div>
+                <div className='h-[60px]'>
+                <AdultDropdown value={adults} setValue={setAdults} />
+                </div>
+                <div className='h-[60px]'>
+                <KidsDropdown value={kids} setValue={setKids} />
+                </div>
+              </div>
+              <button className='btn btn-primary btn-lg w-full'>Book Now</button>
+
+            </div>
+            <div>
+              <h3 className='h3 mb-3'>Hotel Rules</h3>
+              <p className='mb-6'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
+              <ul className='flex flex-col gap-y-4'>
+                <li className='flex items-center gap-x-4'>
+                  <FaCheck className='text-accent' />
+                  Check-in: 10:00PM
+                </li>
+                <li className='flex items-center gap-x-4'>
+                  <FaCheck className='text-accent' />
+                  Check-out: 3:00 PM - 9:00PM
+                </li>
+                <li className='flex items-center gap-x-4'>
+                  <FaCheck className='text-accent' />
+                  Check-in: 3:00 PM - 9:00PM
+                </li>
+                <li className='flex items-center gap-x-4'>
+                  <FaCheck className='text-accent' />
+                  Check-in: 3:00 PM - 9:00PM
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>

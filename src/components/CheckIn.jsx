@@ -4,8 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../datepicker.css'
 import { BsCalendar } from 'react-icons/bs'
 
-function CheckIn() {
-  const [startDate, setStartDate] = useState(false)
+function CheckIn({ startDate, setStartDate }) {
+  // const [startDate, setStartDate] = useState(false)
   return (
       <div className='relative flex items-center justify-end h-full'>
         <div className='absolute z-10 pr-8'>
