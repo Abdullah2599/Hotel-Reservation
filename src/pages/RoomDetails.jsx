@@ -73,8 +73,8 @@ function RoomDetails() {
             <img className='mb-8 shadow-xl' src={`${baseURL + room.image}`} />
             <div className='mt-12'>
               <div className="mt-2 mb-4 text-gray-700">
-                <span className="font-semibold font-primary h3 text-lg text-black text-4xl">Price per Day:</span>
-                <span className="text-red-500 font-bold font-primary text-xl pl-1">${room.price}</span>
+                <span className="font-semibold font-primary h3 text-black text-2xl">Price per day:</span>
+                <span className="text-red-500 font-bold font-primary text-3xl pl-2">${room.price}</span>
               </div>
 
               <h3 className='h3 mb-3'>Room Facilities</h3>

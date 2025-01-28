@@ -7,9 +7,8 @@ export default function Profile() {
     <div className="bg-black">
       <hr />
       <h1 className="h-[260px] text-accent font-tertiary pt-10 pb-10 animate-fadeInUp mt-28 mb-5 text-6xl uppercase text-center">
-        WELCOME TO YOUR PROFILE
+        YOUR PROFILE
       </h1>
-      {/* <hr /> */}
       {/* Sub navigation */}
       <nav className="bg-accent border-b border-gray-300 shadow-sm">
         <ul className="flex justify-center space-x-8 py-4">
@@ -40,7 +39,6 @@ export default function Profile() {
           </li>
         </ul>
       </nav>
-      {/* CODE FOR ACTIVE TABS RESPECTIVELY */}
 
       {/* Bookings Tab */}
       {activeTab === "Bookings" && (
@@ -77,111 +75,50 @@ export default function Profile() {
       {activeTab === "Profile" && (
         <div className="bg-gray-100 min-h-screen flex justify-center items-center p-6">
           <div className="bg-white shadow-lg p-8 w-full max-w-5xl">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">
+            <h1 className="text-2xl font-bold text-gray-800 mb-6 font-tertiary">
               Personal Information
             </h1>
-            {/* Profile form (remains the same as before) */}
             <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
             <div>
-              <label className="block text-gray-600 font-medium mb-2">First Name</label>
+              <label className="block text-gray-600 font-medium mb-2 font-tertiary">First Name</label>
               <input
                 type="text"
-                className="w-full border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full border font-tertiary border-gray-300 p-3 focus:ring-2 focus:ring-accent-hover focus:outline-none"
                 placeholder="First Name"
               />
             </div>
             <div>
-              <label className="block text-gray-600 font-medium mb-2">Last Name</label>
+              <label className="block text-gray-600 font-medium mb-2 font-tertiary">Last Name</label>
               <input
                 type="text"
-                className="w-full border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full border font-tertiary border-gray-300 p-3 focus:ring-2 focus:ring-accent-hover focus:outline-none"
                 placeholder="Last Name"
               />
             </div>
           </div>
-
-          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-gray-600 font-medium mb-2">Date</label>
-              <select className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option>Date</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-600 font-medium mb-2">Month</label>
-              <select className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option>Month</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-600 font-medium mb-2">Year</label>
-              <select className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option>Year</option>
-              </select>
-            </div>
-          </div> */}
-
-          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <label className="block text-gray-600 font-medium mb-2">Country/Region</label>
-              <select className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option>Country/Region</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-600 font-medium mb-2">Area</label>
+              <label className="block text-gray-600 font-medium mb-2 font-tertiary">Contact Number</label>
               <input
                 type="text"
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Area"
-              />
-            </div> */}
-            <div>
-              <label className="block text-gray-600 font-medium mb-2">Number</label>
-              <input
-                type="text"
-                className="w-full border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Number"
+                className="w-full border font-tertiary border-gray-300 p-3 focus:ring-2 focus:ring-accent-hover focus:outline-none"
+                placeholder="Contact Number"
               />
             </div>
-          {/* </div> */}
+          
 
           <div>
-            <label className="block text-gray-600 font-medium mb-2">Email Address</label>
+            <label className="block text-gray-600 font-medium mb-2 font-tertiary">Email Address</label>
             <input
               type="email"
-              className="w-full border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full border font-tertiary border-gray-300 p-3 focus:ring-2 focus:ring-accent-hover focus:outline-none"
               placeholder="Email Address"
             />
           </div>
 
           {/* <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-6">Address</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <label className="block text-gray-600 font-medium mb-2">Country/Region</label>
-              <select className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                <option>Country/Region</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-600 font-medium mb-2">Town/City</label>
-              <input
-                type="text"
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Town/City"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-600 font-medium mb-2">Post Code</label>
-              <input
-                type="text"
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Post Code"
-              />
-            </div>
-          </div>
+          
 
           <div>
             <label className="block text-gray-600 font-medium mb-2">Address</label>

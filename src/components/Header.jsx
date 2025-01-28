@@ -9,6 +9,7 @@ function Header() {
   const [header, setHeader] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
+  
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -54,17 +55,18 @@ function Header() {
         alt="avatar-img"
       />
       {isUserPopupOpen && (
-        <div className="absolute right-0 top-12 bg-white text-black p-4 rounded-md shadow-lg w-48">
+        <div className="absolute right-0 top-12 bg-white text-black p-4 shadow-lg w-48">
           <p className="font-bold">{userInfo.name}</p>
           {/* <p className="text-xs overflow-hidden text-ellipsis">{userInfo.email}</p> */}
           {/* divider and profile button */}
           <hr className="my-2" />
-          <a href="/profile" className="hover:text-accent transition">
+          <a href="/profile" className="hover:text-accent font-bold transition">
             Profile
           </a>
+          <hr className="my-2" />
           <button
             onClick={handleLogout}
-            className="mt-2 w-full bg-red-600 text-white p-2 rounded-md"
+            className="mt-2 w-full bg-red-600 text-white p-2 "
           >
             Logout
           </button>
