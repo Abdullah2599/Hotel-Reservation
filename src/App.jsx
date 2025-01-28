@@ -15,6 +15,8 @@ import OtpVerify from './pages/OtpVerify'
 import Rooms from './components/Rooms'
 import AllRooms from './pages/AllRooms'
 import DRooms from './pages/DisplayRooms'
+import Authlayout from './layouts/AuthLayout'
+import Profile from './pages/Profile'
 
 const AppContext = createContext();
 
@@ -61,11 +63,6 @@ function App() {
     <ToastContainer />
     <AppContext.Provider value={{ tempdata, setTempData, isLogin, setIsLogin, userDetail, setUserDetail, loading, error, data, rooms, setRooms }}>
       <BrowserRouter>
-        {/* Auth */}
-        <Routes>
-          {/* <Route path="/profile" element={<Authlayout><Profile/></Authlayout>}/>
-        <Route path="/checkout" element={<Authlayout><Checkout/></Authlayout>}/> */}
-        </Routes>
         {/* Guest */}
         <Routes>
           <Route path="" element={<Guestlayout><Home /></Guestlayout>} />
@@ -75,9 +72,10 @@ function App() {
           <Route path="/room/:id" element={<Guestlayout><RoomDetails /></Guestlayout>} />
           <Route path="/rooms" element={<Guestlayout><AllRooms /></Guestlayout>} />
           <Route path="/allrooms" element={<Guestlayout><DRooms /></Guestlayout>} />
+          <Route path="/profile" element={<Authlayout><Profile /></Authlayout>} />
           <Route path="/facilities" element={<Guestlayout><Facilities /></Guestlayout>} />
           <Route path="/contactus" element={<Guestlayout><Contact /></Guestlayout>} />
-          <Route path="/checkout" element={<Guestlayout><Checkout /></Guestlayout>} />
+          <Route path="/checkout" element={<Authlayout><Checkout /></Authlayout>} />
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>

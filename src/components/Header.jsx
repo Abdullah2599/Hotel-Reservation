@@ -50,13 +50,18 @@ function Header() {
         width={40}
         height={40}
         className="h-8 w-8 rounded-full cursor-pointer"
-        src="https://cdn.pixabay.com/photo/2018/11/13/22/01/avatar-3814081_640.png"
+        src="https://st3.depositphotos.com/6672868/18147/v/450/depositphotos_181470454-stock-illustration-user-vector-icon-illustration.jpg"
         alt="avatar-img"
       />
       {isUserPopupOpen && (
         <div className="absolute right-0 top-12 bg-white text-black p-4 rounded-md shadow-lg w-48">
           <p className="font-bold">{userInfo.name}</p>
-          <p className="text-xs overflow-hidden text-ellipsis">{userInfo.email}</p>
+          {/* <p className="text-xs overflow-hidden text-ellipsis">{userInfo.email}</p> */}
+          {/* divider and profile button */}
+          <hr className="my-2" />
+          <a href="/profile" className="hover:text-accent transition">
+            Profile
+          </a>
           <button
             onClick={handleLogout}
             className="mt-2 w-full bg-red-600 text-white p-2 rounded-md"
