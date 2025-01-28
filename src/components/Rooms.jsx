@@ -11,7 +11,7 @@ function Rooms() {
     <section className='py-24'>
       <div className='container mx-auto lg:px-0'>
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-800 font-primary">Our Rooms</h2>
+        <h2 className="text-3xl font-bold text-gray-800 uppercase font-tertiary tracking-[3px]">Our Rooms</h2>
         <p className="text-gray-600 mt-2 font-tertiary">
           Discover the unique rooms we offer for your convenience.
         </p>
