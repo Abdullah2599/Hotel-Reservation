@@ -9,7 +9,7 @@ export default function Profile() {
       <h1 className="h-[260px] text-accent font-tertiary pt-10 pb-10 animate-fadeInUp mt-28 mb-5 text-6xl uppercase text-center">
         WELCOME TO YOUR PROFILE
       </h1>
-      <hr />
+      {/* <hr /> */}
       {/* Sub navigation */}
       <nav className="bg-accent border-b border-gray-300 shadow-sm">
         <ul className="flex justify-center space-x-8 py-4">
@@ -17,8 +17,8 @@ export default function Profile() {
             <button
               onClick={() => setActiveTab("Bookings")}
               className={`${
-                activeTab === "Bookings" ? "text-yellow-500 font-bold" : "text-white hover:text-yellow-500"
-              } font-medium transition`}
+                activeTab === "Bookings" ? "text-black font-bold" : "text-white hover:-translate-y-1/4"
+              } font-medium transition font-tertiary tracking-wider`}
             >
               Bookings
             </button>
@@ -27,14 +27,14 @@ export default function Profile() {
             <button
               onClick={() => setActiveTab("Profile")}
               className={`${
-                activeTab === "Profile" ? "text-yellow-500 font-bold" : "text-white hover:text-yellow-500"
-              } font-medium transition`}
+                activeTab === "Profile" ? "text-black font-bold" : "text-white hover:-translate-y-1/4"
+              } font-medium transition font-tertiary tracking-wider`}
             >
               Profile
             </button>
           </li>
           <li>
-           <button className="text-white hover:text-yellow-500 font-medium transition">
+           <button className="text-white hover:-translate-y-1/4 font-medium transition font-tertiary tracking-wider">
             Logout
            </button>
           </li>
