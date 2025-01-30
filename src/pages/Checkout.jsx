@@ -69,7 +69,7 @@ function Checkout() {
       console.log(response);
       if (response.message === 'Booking Registered') {
         console.log('Booking Registered');
-        router('/confirmation');
+        router('/confirmation', { state: { bookingId: response.id } });
       }
     } catch (error) {
       console.error('Error adding booking:', error);
