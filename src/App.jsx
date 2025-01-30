@@ -17,6 +17,7 @@ import AllRooms from './pages/AllRooms'
 import DRooms from './pages/DisplayRooms'
 import Authlayout from './layouts/AuthLayout'
 import Profile from './pages/Profile'
+import Confirmation from './pages/Confirmation'
 
 const AppContext = createContext();
 
@@ -73,6 +74,7 @@ function App() {
           <Route path="/rooms" element={<Guestlayout><AllRooms /></Guestlayout>} />
           <Route path="/allrooms" element={<Guestlayout><DRooms /></Guestlayout>} />
           <Route path="/profile" element={<Authlayout><Profile /></Authlayout>} />
+          <Route path="/confirmation" element={<Authlayout><Confirmation /></Authlayout>} />
           <Route path="/facilities" element={<Guestlayout><Facilities /></Guestlayout>} />
           <Route path="/contactus" element={<Guestlayout><Contact /></Guestlayout>} />
           <Route path="/checkout" element={<Authlayout><Checkout /></Authlayout>} />

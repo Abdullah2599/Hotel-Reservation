@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 // import { roomData } from '../../data'
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -10,6 +10,7 @@ import KidsDropdown from '../components/KidsDropdown'
 import { FaCheck } from 'react-icons/fa';
 import { useFormik } from 'formik';
 import { apiService } from '../services/Apiservice';
+import { toast } from 'react-toastify';
 function RoomDetails() {
   const baseURL = import.meta.env.VITE_API_IMAGE
   const cleanedBaseURL = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL;
@@ -18,10 +19,9 @@ function RoomDetails() {
   //console.log(id);
   const [loading, setLoading] = useState(true);
   const [room, setRoom] = useState();
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
-  const [adults, setAdults] = useState(1);
-  const [kids, setKids] = useState('');
+  const [services, setServices] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   useEffect(() => {
     async function fetchData() {
       window.scrollTo(0, 0);
@@ -29,6 +29,9 @@ function RoomDetails() {
       // setRoom(room);
       try {
         const response = await apiService.getData(`room/record/${id}`);
+        const anotherresponse = await apiService.getData(`a_service/list`);
+        console.log(anotherresponse);
+        setServices(anotherresponse.data);
         setRoom(response.roomdata); // Set the room data
       } catch (error) {
         console.error('Error fetching room data:', error);
@@ -37,9 +40,36 @@ function RoomDetails() {
       }
     }
     fetchData();
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [id]);
 
-  const loadIcon = ( iconName) => {
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  const handleCheckboxChange = (id, name, price) => {
+    setSelectedServices((prevSelected) => {
+      let newSelectedServices;
+      console.log(id);
+      if (prevSelected.some(service => service.id === id)) {
+        // Deselecting the service
+        newSelectedServices = prevSelected.filter(service => service.id !== id);
+      } else {
+        // Selecting the service
+        newSelectedServices = [...prevSelected, { id, name, price }];
+      }
+      // Save the selected services to localStorage
+     // localStorage.setItem('selectedServices', JSON.stringify(newSelectedServices));
+      return newSelectedServices;
+    });
+  };
+
+  const loadIcon = (iconName) => {
     return React.Component(() =>
       import(`react-icons/fa`).then((module) => ({
         default: module[iconName],
@@ -75,9 +105,15 @@ function RoomDetails() {
       console.log(room);
       const personInt = parseInt(person, 10);
 
-      const bookingData = { valid_from, valid_to, person: personInt, room: room.id };
+      const bookingData = { valid_from, valid_to, person: personInt, roomid: room.id,room:room, services: selectedServices };
       console.log(bookingData);
       try {
+        // return if user is not logged in
+        if (!localStorage.getItem('token')) {
+          toast.error('Please login to book a room');
+          router('/login');
+          return;
+        }
         setLoading(true);
         const response = await apiService.postData(`booking/datefilter`, bookingData);
         if (response.message === 'room available') {
@@ -170,30 +206,73 @@ function RoomDetails() {
           <div className='w-full h-full lg:w-[40%] px-6'>
             <form onSubmit={formik.handleSubmit}>
               <div className='py-8 px-6 bg-accent/20 mb-12'>
-                <div className='flex flex-col space-y-4 mb-4'>
+                <div className='flex flex-col space-y-8 mb-4'>
                   <h3 className='h3 mb-3'>Your Reservation</h3>
                   <div className='h-[60px]'>
                     <CheckIn startDate={formik.values.checkInDate}
                       setStartDate={(date) => formik.setFieldValue('checkInDate', date)} />
+                    {formik.touched.checkInDate && formik.errors.checkInDate ? (
+                      <div className="text-red-500">{formik.errors.checkInDate}</div>
+                    ) : null}
                     {/* <div>Price Per Day:{room.price}</div> */}
                   </div>
                   <div className='h-[60px]'>
                     <CheckOut endDate={formik.values.checkOutDate}
                       setEndDate={(date) => formik.setFieldValue('checkOutDate', date)} />
+                    {formik.touched.checkOutDate && formik.errors.checkOutDate ? (
+                      <div className="text-red-500">{formik.errors.checkOutDate}</div>
+                    ) : null}
                     {/* <div>Selected Check In Date: 1/25/25</div> */}
                   </div>
                   <div className='h-[60px]'>
                     <AdultDropdown value={formik.values.adults}
                       setValue={(value) => formik.setFieldValue('adults', value)} />
+                    {formik.touched.adults && formik.errors.adults ? (
+                      <div className="text-red-500">{formik.errors.adults}</div>
+                    ) : null}
                     {/* <div>Selected Check Out Date: 1/28/25</div> */}
                   </div>
                   <div className='h-[60px]'>
                     <KidsDropdown value={formik.values.kids}
                       setValue={(value) => formik.setFieldValue('kids', value)} />
-
+                    {formik.touched.kids && formik.errors.kids ? (
+                      <div className="text-red-500">{formik.errors.kids}</div>
+                    ) : null}
                   </div>
-                  <button type='submit' className='btn btn-primary btn-lg w-full'>Book Now</button>
+                  <div className='flex-1'>
+                    <div className="relative" ref={dropdownRef}>
+                      <button
+                        type="button"
+                        onClick={() => setIsDropdownOpen((prev) => !prev)}
+                        className="w-full px-8 py-2 bg-white flex justify-between items-center h-14"
+                      >
+                        Additional Services
+                        <span className="ml-2">{selectedServices.length} selected</span>
+                      </button>
+                      {isDropdownOpen && (
+                        <div className="absolute top-12 left-0 w-full bg-white shadow-lg z-10 max-h-60 overflow-auto">
+                          {services.map((item) => (
+                            <label key={item._id} className="flex items-center space-x-2 px-4 py-2 hover:bg-gray-100 cursor-pointer justify-between">
+                              <input
+                                type="checkbox"
+                                checked={selectedServices.some(service => service.id === item._id)}
+                                onChange={() => handleCheckboxChange(item._id, item.name, item.price)}
+                                className="form-checkbox h-4 w-4 text-accent-hover"
+                              />
+                              <span>{item.name} - ${item.price}</span>
+                            </label>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {formik.touched.additionalServices && formik.errors.additionalServices && (
+                      <div className="text-red-500">{formik.errors.additionalServices}</div>
+                    )}
+                  </div>
+
                 </div>
+                <button type='submit' className='btn btn-primary w-full h-12'>Book Now</button>
               </div>
             </form>
 
