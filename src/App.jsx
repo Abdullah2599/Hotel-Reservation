@@ -38,7 +38,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await apiService.getData('room/list');  // Replace with your API endpoint
+        const result = await apiService.getData('room/availableroomlist');  // Replace with your API endpoint
         setData(result);
        // console.log(result);
       } catch (err) {

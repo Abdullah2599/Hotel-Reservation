@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 // import { roomData } from '../../data'
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -39,6 +39,14 @@ function RoomDetails() {
     fetchData();
   }, [id]);
 
+  const loadIcon = ( iconName) => {
+    return React.Component(() =>
+      import(`react-icons/fa`).then((module) => ({
+        default: module[iconName],
+      }))
+    );
+  };
+
   //datefilter api call
   const formik = useFormik({
     initialValues: {
@@ -65,7 +73,9 @@ function RoomDetails() {
       const valid_from = new Date(checkInDate).toISOString();
       const valid_to = new Date(checkOutDate).toISOString();
       console.log(room);
-      const bookingData = { valid_from, valid_to, person, room: room.id };
+      const personInt = parseInt(person, 10);
+
+      const bookingData = { valid_from, valid_to, person: personInt, room: room.id };
       console.log(bookingData);
       try {
         setLoading(true);
@@ -111,7 +121,8 @@ function RoomDetails() {
 
 
 
-  const { facilities } = room;
+  const { roomfacility } = room;
+  console.log(roomfacility);
   return (
     <section>
       <div className="bg-cover bg-center h-[560px] relative flex justify-center items-center" style={{ backgroundImage: `url(${baseURL + room.imagelg})` }}>
@@ -136,18 +147,22 @@ function RoomDetails() {
               <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
               <div>
                 <div className='grid grid-cols-3 gap-6 mb-12'>
-                  {/* {facilities.map((item, index) => {
-                        const {icon, name} = item;
-                      return (
+                  {roomfacility.map((item, index) => {
+                    const { icon, name } = item.facility;
+                    const IconComponent = loadIcon(icon);
+                    // return console.log('abc'+item.facility.icon);
+                    return (
                       <div key={index} className='flex items-center gap-x-3 flex-1'>
                         <div className='text-accent text-3xl'>
-                          <item.icon/>
+                          <Suspense fallback={<div>Loading...</div>}>
+                            {IconComponent ? <IconComponent /> : null}
+                          </Suspense>
                         </div>
                         <div className='text-base'>
                           {name}
                         </div>
                       </div>);
-                      })} */}
+                  })}
                 </div>
               </div>
             </div>
