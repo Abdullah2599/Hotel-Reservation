@@ -11,6 +11,7 @@ function Confirmation() {
   const router = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const bookingDataFromStorage = localStorage.getItem('bookingData');
     const userFromToken = localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : null;
 

@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react'
-// import { roomData } from '../../data'
+import { FaCheck, FaCoffee, FaBed, FaBath, FaWifi } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { startOfDay } from 'date-fns';
@@ -7,10 +7,10 @@ import CheckIn from '../components/CheckIn'
 import CheckOut from '../components/CheckOut'
 import AdultDropdown from '../components/AdultDropdown'
 import KidsDropdown from '../components/KidsDropdown'
-import { FaCheck } from 'react-icons/fa';
 import { useFormik } from 'formik';
 import { apiService } from '../services/Apiservice';
 import { toast } from 'react-toastify';
+import { BsFillLockFill, BsFillPersonFill, BsFillTvFill, BsWifi } from 'react-icons/bs';
 function RoomDetails() {
   const baseURL = import.meta.env.VITE_API_IMAGE
   const cleanedBaseURL = baseURL.endsWith('/') ? baseURL.slice(0, -1) : baseURL;
@@ -22,6 +22,16 @@ function RoomDetails() {
   const [services, setServices] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const iconMap = {
+    FaCheck: FaCheck,
+    FaCoffee: FaCoffee,
+    FaBed: FaBed,
+    FaBath: FaBath,
+    FaWifi: FaWifi,
+    
+  };
+
   useEffect(() => {
     async function fetchData() {
       window.scrollTo(0, 0);
@@ -64,18 +74,12 @@ function RoomDetails() {
         newSelectedServices = [...prevSelected, { id, name, price }];
       }
       // Save the selected services to localStorage
-     // localStorage.setItem('selectedServices', JSON.stringify(newSelectedServices));
+      // localStorage.setItem('selectedServices', JSON.stringify(newSelectedServices));
       return newSelectedServices;
     });
   };
 
-  const loadIcon = (iconName) => {
-    return React.Component(() =>
-      import(`react-icons/fa`).then((module) => ({
-        default: module[iconName],
-      }))
-    );
-  };
+
 
   //datefilter api call
   const formik = useFormik({
@@ -105,7 +109,7 @@ function RoomDetails() {
       console.log(room);
       const personInt = parseInt(person, 10);
 
-      const bookingData = { valid_from, valid_to, person: personInt, roomid: room.id,room:room, services: selectedServices };
+      const bookingData = { valid_from, valid_to, person: personInt, roomid: room.id, room: room, services: selectedServices };
       console.log(bookingData);
       try {
         // return if user is not logged in
@@ -170,38 +174,81 @@ function RoomDetails() {
       <div className='container mx-auto'>
         <div className='flex flex-col lg:flex-row py-24'>
           <div className='w-full h-full lg:w-[60%] px-6'>
-            <h2 className='h2'>Room Details</h2>
-            <p className='mb-8'>{room.description}</p>
+            <h2 className='text-[30px] font-tertiary'>Room Details</h2>
+            <h3 className="font-tertiary text-black text-lg font-semibold">Price Per Day:</h3>
+            <span className="text-red-500 font-bold font-tertiary text-2xl">${room.price}</span>
+            <h3 className='text-lg font-semibold font-tertiary'>Room Type</h3>
+            <p className='font-tertiary uppercase'>{room.roomType}</p>
+            <h3 className='text-lg font-semibold'>Max Guests</h3>
+            <p className='font-tertiary'>{room.person}</p>
+            <hr className='my-2' />
+            <h3 className='text-lg font-semibold'>Room Description</h3>
+            <p className='mb-8 font-tertiary'>{room.description}</p>
             <img className='mb-8 shadow-xl' src={`${baseURL + room.image}`} />
-            <div className='mt-12'>
-              <div className="mt-2 mb-4 text-gray-700">
-                <span className="font-semibold font-primary h3 text-black text-2xl">Price per day:</span>
-                <span className="text-red-500 font-bold font-primary text-3xl pl-2">${room.price}</span>
-              </div>
-
+            {roomfacility && roomfacility.length ? <div className='mt-12'>
               <h3 className='h3 mb-3'>Room Facilities</h3>
               <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
               <div>
                 <div className='grid grid-cols-3 gap-6 mb-12'>
                   {roomfacility.map((item, index) => {
                     const { icon, name } = item.facility;
-                    const IconComponent = loadIcon(icon);
-                    // return console.log('abc'+item.facility.icon);
+                    const IconComponent = iconMap[icon];
+
                     return (
                       <div key={index} className='flex items-center gap-x-3 flex-1'>
                         <div className='text-accent text-3xl'>
-                          <Suspense fallback={<div>Loading...</div>}>
-                            {IconComponent ? <IconComponent /> : null}
-                          </Suspense>
+                          {IconComponent ? <IconComponent /> : null}
                         </div>
                         <div className='text-base'>
                           {name}
                         </div>
-                      </div>);
+                      </div>
+                    );
                   })}
                 </div>
               </div>
+            </div> : null}
+            <div className='flex flex-col gap-y-4'>
+              <h3 className='h3 mb-3'>Exclusive Room Amenities</h3>
+              <p className='mb-12'>
+                Our rooms are equipped with a range of luxurious amenities to ensure you have a comfortable and memorable stay. Enjoy the convenience and relaxation our services provide, designed to cater to your every need.
+              </p>
+              <div className='grid grid-cols-2 gap-6'>
+                <div className='flex items-center gap-x-3 flex-1'>
+                  <div className='text-accent text-3xl'>
+                    <BsWifi />
+                  </div>
+                  <div className='text-base'>
+                    High-Speed Wifi – Stay connected with fast, free internet throughout your stay.
+                  </div>
+                </div>
+                <div className='flex items-center gap-x-3 flex-1'>
+                  <div className='text-accent text-3xl'>
+                    <BsFillLockFill />
+                  </div>
+                  <div className='text-base'>
+                    Secure Keyless Entry – Access your room with ease and peace of mind.
+                  </div>
+                </div>
+                <div className='flex items-center gap-x-3 flex-1'>
+                  <div className='text-accent text-3xl'>
+                    <BsFillTvFill />
+                  </div>
+                  <div className='text-base'>
+                    Smart TV – Enjoy a range of entertainment options at your fingertips.
+                  </div>
+                </div>
+                <div className='flex items-center gap-x-3 flex-1'>
+                  <div className='text-accent text-3xl'>
+                    <BsFillPersonFill />
+                  </div>
+                  <div className='text-base'>
+                    Premium Service – Our attentive staff is available for all your requests.
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
           <div className='w-full h-full lg:w-[40%] px-6'>
             <form onSubmit={formik.handleSubmit}>
@@ -214,7 +261,6 @@ function RoomDetails() {
                     {formik.touched.checkInDate && formik.errors.checkInDate ? (
                       <div className="text-red-500">{formik.errors.checkInDate}</div>
                     ) : null}
-                    {/* <div>Price Per Day:{room.price}</div> */}
                   </div>
                   <div className='h-[60px]'>
                     <CheckOut endDate={formik.values.checkOutDate}
@@ -222,7 +268,6 @@ function RoomDetails() {
                     {formik.touched.checkOutDate && formik.errors.checkOutDate ? (
                       <div className="text-red-500">{formik.errors.checkOutDate}</div>
                     ) : null}
-                    {/* <div>Selected Check In Date: 1/25/25</div> */}
                   </div>
                   <div className='h-[60px]'>
                     <AdultDropdown value={formik.values.adults}
@@ -230,7 +275,6 @@ function RoomDetails() {
                     {formik.touched.adults && formik.errors.adults ? (
                       <div className="text-red-500">{formik.errors.adults}</div>
                     ) : null}
-                    {/* <div>Selected Check Out Date: 1/28/25</div> */}
                   </div>
                   <div className='h-[60px]'>
                     <KidsDropdown value={formik.values.kids}
@@ -277,27 +321,30 @@ function RoomDetails() {
             </form>
 
             <div>
-              <h3 className='h3 mb-3'>Hotel Rules</h3>
-              <p className='mb-6'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
+              <h3 className='h3 mb-3'>Hotel Rules & Booking Details</h3>
+              <p className='mb-6'>
+                Please note that your initial booking is considered provisional. Our agents will verify the details and confirm the reservation once all necessary checks have been completed. We aim to provide you with the best possible service and appreciate your understanding.
+              </p>
               <ul className='flex flex-col gap-y-4'>
                 <li className='flex items-center gap-x-4'>
                   <FaCheck className='text-accent' />
-                  Check-in: 10:00PM
+                  Additional Services: The service fee applies only once during your stay and is not charged daily.
                 </li>
                 <li className='flex items-center gap-x-4'>
                   <FaCheck className='text-accent' />
-                  Check-out: 3:00 PM - 9:00PM
+                  Provisional Booking: Your reservation will be confirmed once our team verifies the booking details.
                 </li>
                 <li className='flex items-center gap-x-4'>
                   <FaCheck className='text-accent' />
-                  Check-in: 3:00 PM - 9:00PM
+                  Payment: Full payment is required at the time of check-in to proceed with verification.
                 </li>
                 <li className='flex items-center gap-x-4'>
                   <FaCheck className='text-accent' />
-                  Check-in: 3:00 PM - 9:00PM
+                  Additional Information: Please ensure that you provide accurate information to avoid delays in the confirmation process.
                 </li>
               </ul>
             </div>
+
           </div>
         </div>
       </div>

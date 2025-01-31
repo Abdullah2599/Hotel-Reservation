@@ -14,7 +14,7 @@ class ApiService {
         toast.error("Server is down or there is a network issue. Please try again later.");
       } else {
         // Handle specific HTTP errors
-        toast.error(`Error: ${error.response.status} - ${error.response.data.message || error.message}`);
+        toast.error(`Error:  ${error.response.data.message || error.message}`);
       }
       throw error;  
     }
@@ -32,7 +32,7 @@ class ApiService {
         toast.error("Server is down or there is a network issue. Please try again later.");
       } else {
         // Handle specific HTTP errors
-        toast.error(`Error: ${error.response.status} - ${error.response.data.message || error.message}`);
+        toast.error(`Error:  ${error.response.data.message || error.message}`);
       }
       throw error;
     }

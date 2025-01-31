@@ -5,25 +5,30 @@ import { jwtDecode } from "jwt-decode";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import ChangePasswordModal from "../components/ChangePassword";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Profile");
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     const fetchData = async () => {
       window.scrollTo(0, 0);
       const response = await apiService.getData(`booking/guestbooking`);
       setBookings(response.Bookingdata);
-      console.log(bookings);
+      // console.log(bookings);
 
       const userFromToken = localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : null;
 
       if (userFromToken) {
         setUserData(userFromToken);
-        console.log(userFromToken);
+        // console.log(userFromToken);
       }
     };
 
@@ -32,10 +37,10 @@ export default function Profile() {
 
   const handleLogout = () => {
     // authService.logout(Token);
-     navigate("/");
-     localStorage.removeItem("token");
-     window.location.reload();
-   };
+    navigate("/");
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
 
   const validationSchema = Yup.object({
     username: Yup.string()
@@ -56,7 +61,7 @@ export default function Profile() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       apiService
-        .putData('auth/editprofile', values) 
+        .putData('auth/editprofile', values)
         .then((response) => {
           console.log('User info updated successfully', response.data);
           toast.success('User info updated successfully');
@@ -147,13 +152,21 @@ export default function Profile() {
         </div>
       )}
 
-       {/* Profile Tab */}
-       {activeTab === "Profile" && (
-        <div className="bg-gray-100 min-h-screen flex justify-center items-center p-6">
+      {/* Profile Tab */}
+      {activeTab === "Profile" && (
+        <div className="bg-gray-100 min-h-screen flex justify-center items-center p-2 sm:p-6">
           <div className="bg-white shadow-lg p-8 w-full max-w-5xl">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6 font-tertiary">
-              Personal Information
-            </h1>
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-2xl font-bold text-gray-800 mb-6 w-3/4 font-tertiary">
+                Personal Information
+              </h1>
+              <button onClick={openModal} className="btn bg-accent w-[25%]">
+                Change Password
+              </button>
+            </div>
+            <div className="flex items-center mb-4 z-0">
+            <ChangePasswordModal isOpen={isModalOpen} closeModal={closeModal} />
+            </div>
             <form onSubmit={formik.handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-gray-600 font-medium mb-2 font-tertiary">Name</label>

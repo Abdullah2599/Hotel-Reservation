@@ -7,7 +7,7 @@ function Checkout() {
   // State management
   const [bookingData, setBookingData] = useState({});
   const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [numDays, setNumDays] = useState(0);
   const router = useNavigate();
@@ -15,6 +15,7 @@ function Checkout() {
 
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const bookingDataFromStorage = localStorage.getItem('bookingData');
     const userFromToken = localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : null;
 
@@ -167,7 +168,10 @@ function Checkout() {
 
                 </div>
 
-                <button type="submit" className="w-full btn btn-primary h-12" onClick={handleSubmit}>Confirm Booking</button>
+                {/* <button type="submit" className="w-full btn btn-primary h-12" onClick={handleSubmit}>Confirm Booking</button> */}
+                <button type="submit" className="w-full btn btn-primary h-12" onClick={handleSubmit}>
+                  {isLoading ? 'Loading...' : 'Confirm Booking'}
+                </button>
               </form>
             </div>
 
