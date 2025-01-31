@@ -112,7 +112,6 @@ function RoomDetails() {
       const bookingData = { valid_from, valid_to, person: personInt, roomid: room.id, room: room, services: selectedServices };
       console.log(bookingData);
       try {
-        // return if user is not logged in
         if (!localStorage.getItem('token')) {
           toast.error('Please login to book a room');
           router('/login');
@@ -187,7 +186,7 @@ function RoomDetails() {
             <img className='mb-8 shadow-xl' src={`${baseURL + room.image}`} />
             {roomfacility && roomfacility.length ? <div className='mt-12'>
               <h3 className='h3 mb-3'>Room Facilities</h3>
-              <p className='mb-12'>lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eos quae iste.</p>
+              <p className='mb-12'>Enjoy the convenience and relaxation our services provide, designed to cater to your every need.</p>
               <div>
                 <div className='grid grid-cols-3 gap-6 mb-12'>
                   {roomfacility.map((item, index) => {
@@ -208,8 +207,8 @@ function RoomDetails() {
                 </div>
               </div>
             </div> : null}
-            <div className='flex flex-col gap-y-4'>
-              <h3 className='h3 mb-3'>Exclusive Room Amenities</h3>
+            <div className='flex flex-col gap-y-4 mb-10'>
+              <h3 className='text-2xl font-primary font-semibold tracking-[1px]'>Exclusive Room Amenities</h3>
               <p className='mb-12'>
                 Our rooms are equipped with a range of luxurious amenities to ensure you have a comfortable and memorable stay. Enjoy the convenience and relaxation our services provide, designed to cater to your every need.
               </p>
@@ -301,7 +300,7 @@ function RoomDetails() {
                                 type="checkbox"
                                 checked={selectedServices.some(service => service.id === item._id)}
                                 onChange={() => handleCheckboxChange(item._id, item.name, item.price)}
-                                className="form-checkbox h-4 w-4 text-accent-hover"
+                                className="form-checkbox h-4 w-4 text-accent-hover bg-accent hover:bg-accent-hover"
                               />
                               <span>{item.name} - ${item.price}</span>
                             </label>
