@@ -28,7 +28,7 @@ export default function Profile() {
 
       if (userFromToken) {
         setUserData(userFromToken);
-        // console.log(userFromToken);
+         console.log(userFromToken);
       }
     };
 
@@ -60,8 +60,9 @@ export default function Profile() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      // Update user info in the backend with id in params
       apiService
-        .putData('auth/editprofile', values)
+        .putData(`auth/editprofile/${userData.id}`, values)
         .then((response) => {
           console.log('User info updated successfully', response.data);
           toast.success('User info updated successfully');

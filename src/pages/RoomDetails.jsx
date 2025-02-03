@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react'
-import { FaCheck, FaCoffee, FaBed, FaBath, FaWifi } from 'react-icons/fa';
+import { FaCheck, FaCoffee, FaBed, FaBath, FaWifi, FaSnowflake, FaChess, FaBook, FaTshirt, FaDumbbell } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { startOfDay } from 'date-fns';
@@ -29,7 +29,12 @@ function RoomDetails() {
     FaBed: FaBed,
     FaBath: FaBath,
     FaWifi: FaWifi,
-    
+    FaSnowflake: FaSnowflake,
+    FaChess: FaChess,
+    FaTv: BsFillTvFill,
+    FaBook: FaBook,
+    FaTshirt: FaTshirt,
+    FaDumbbell: FaDumbbell
   };
 
   useEffect(() => {
@@ -119,7 +124,7 @@ function RoomDetails() {
         }
         setLoading(true);
         const response = await apiService.postData(`booking/datefilter`, bookingData);
-        if (response.message === 'room available') {
+        if (response.msg === 'room available') {
           console.log('Room available');
           localStorage.setItem('bookingData', JSON.stringify(bookingData));
           router('/checkout');
@@ -183,7 +188,7 @@ function RoomDetails() {
             <hr className='my-2' />
             <h3 className='text-lg font-semibold'>Room Description</h3>
             <p className='mb-8 font-tertiary'>{room.description}</p>
-            <img className='mb-8 shadow-xl' src={`${baseURL + room.image}`} />
+            <img className='mb-8 shadow-xl w-full' src={`${baseURL + room.image}`} />
             {roomfacility && roomfacility.length ? <div className='mt-12'>
               <h3 className='h3 mb-3'>Room Facilities</h3>
               <p className='mb-12'>Enjoy the convenience and relaxation our services provide, designed to cater to your every need.</p>

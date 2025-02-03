@@ -21,7 +21,7 @@ import Confirmation from './pages/Confirmation'
 
 const AppContext = createContext();
 
-export function useAppContext(){
+export function useAppContext() {
   return useContext(AppContext);
 }
 
@@ -29,8 +29,8 @@ export function useAppContext(){
 function App() {
 
   const [tempdata, setTempData] = useState(null);
-  const [isLogin,setIsLogin] = useState(false)
-  const [userDetail,setUserDetail] = useState( localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : {} )
+  const [isLogin, setIsLogin] = useState(false)
+  const [userDetail, setUserDetail] = useState(localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : {})
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
@@ -41,12 +41,22 @@ function App() {
       try {
         const result = await apiService.getData('room/availableroomlist');  // Replace with your API endpoint
         setData(result);
-       // console.log(result);
+        // console.log(result);
       } catch (err) {
         setError('Error fetching data');
       } finally {
         setLoading(false);
       }
+      // const response = await apiService.getData(`auth/checkstatus/${userDetail.id}`);
+      // if (response.status === 200) {
+      //   setIsLogin(true)
+      // }
+      // else {
+      //   setIsLogin(false)
+      //   localStorage.removeItem('token');
+      //   setUserInfo(null);
+      //   window.location.reload();
+      // }
     };
 
     fetchData();
@@ -61,26 +71,26 @@ function App() {
 
   return (
     <>
-    <ToastContainer />
-    <AppContext.Provider value={{ tempdata, setTempData, isLogin, setIsLogin, userDetail, setUserDetail, loading, error, data, rooms, setRooms }}>
-      <BrowserRouter>
-        {/* Guest */}
-        <Routes>
-          <Route path="" element={<Guestlayout><Home /></Guestlayout>} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/otp" element={<OtpVerify />} />
-          <Route path="/room/:id" element={<Guestlayout><RoomDetails /></Guestlayout>} />
-          <Route path="/rooms" element={<Guestlayout><AllRooms /></Guestlayout>} />
-          <Route path="/allrooms" element={<Guestlayout><DRooms /></Guestlayout>} />
-          <Route path="/profile" element={<Authlayout><Profile /></Authlayout>} />
-          <Route path="/confirmation" element={<Authlayout><Confirmation /></Authlayout>} />
-          <Route path="/facilities" element={<Guestlayout><Facilities /></Guestlayout>} />
-          <Route path="/contactus" element={<Guestlayout><Contact /></Guestlayout>} />
-          <Route path="/checkout" element={<Authlayout><Checkout /></Authlayout>} />
-        </Routes>
-      </BrowserRouter>
-    </AppContext.Provider>
+      <ToastContainer />
+      <AppContext.Provider value={{ tempdata, setTempData, isLogin, setIsLogin, userDetail, setUserDetail, loading, error, data, rooms, setRooms }}>
+        <BrowserRouter>
+          {/* Guest */}
+          <Routes>
+            <Route path="" element={<Guestlayout><Home /></Guestlayout>} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/otp" element={<OtpVerify />} />
+            <Route path="/room/:id" element={<Guestlayout><RoomDetails /></Guestlayout>} />
+            <Route path="/rooms" element={<Guestlayout><AllRooms /></Guestlayout>} />
+            <Route path="/allrooms" element={<Guestlayout><DRooms /></Guestlayout>} />
+            <Route path="/profile" element={<Authlayout><Profile /></Authlayout>} />
+            <Route path="/confirmation" element={<Authlayout><Confirmation /></Authlayout>} />
+            <Route path="/facilities" element={<Guestlayout><Facilities /></Guestlayout>} />
+            <Route path="/contactus" element={<Guestlayout><Contact /></Guestlayout>} />
+            <Route path="/checkout" element={<Authlayout><Checkout /></Authlayout>} />
+          </Routes>
+        </BrowserRouter>
+      </AppContext.Provider>
     </>
   )
 }

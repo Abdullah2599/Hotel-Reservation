@@ -35,7 +35,7 @@ function Login() {
                 const response = await apiService.postData('auth/login', values);
                 console.log(response);
 
-                if (response.message === 'token create') {
+                if (response.msg === 'token create') {
                   toast.success("Login successful!")
                   // reload
                   localStorage.setItem('token', response.token);

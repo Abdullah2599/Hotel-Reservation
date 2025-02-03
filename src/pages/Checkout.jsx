@@ -59,6 +59,7 @@ function Checkout() {
       valid_to: bookingData.valid_to,
       person: bookingData.person,
       room: bookingData.room.id,
+      totalBill: totalPrice,
       service: bookingData.services.map((service) => ({
         service: service.id, 
       })),
@@ -68,7 +69,7 @@ function Checkout() {
       setIsLoading(true);
       const response = await apiService.postData('booking/create', bookingdata);
       console.log(response);
-      if (response.message === 'Booking Registered') {
+      if (response.msg === 'Booking Registered') {
         console.log('Booking Registered');
         router('/confirmation', { state: { bookingId: response.id } });
       }

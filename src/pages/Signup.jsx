@@ -54,7 +54,7 @@ function Signup() {
                 try {
                   const response = await apiService.postData('auth/register', data);
                   console.log(response);          
-                  if (response.message === 'generate code successfully') {
+                  if (response.msg === 'generate code successfully') {
                     setError(null);
                     toast.success('Account created!');
                    // router('/otp', {data: {email: values.email}});
@@ -66,7 +66,7 @@ function Signup() {
                   console.error('Error during registration:', err.response.data.errors);
                   const errorMessages = err.response.data.errors.map((error) => ({
                     field: error.path, 
-                    message: error.msg,
+                    msg: error.msg,
                   }));
                   setError(errorMessages);
                  
@@ -81,7 +81,7 @@ function Signup() {
                       {error.map((err, index) => (
                         <li key={index} className="text-sm">
                           {/* Display each error message from the "message" field */}
-                          {err.message}
+                          {err.msg}
                         </li>
                       ))}
                     </ul>

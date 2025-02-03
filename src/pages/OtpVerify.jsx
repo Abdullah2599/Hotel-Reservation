@@ -50,8 +50,8 @@ function OtpVerify() {
                         // const verifyResponse = await axios.post('http://192.168.2.2:90/api/v1/auth/verifycode', { code });
                         const verifyResponse = await apiService.postData('auth/verifycode', { code });
                       
-                          if (verifyResponse.message === 'user registered successfully') {
-                            console.log('OTP verified successfully:', verifyResponse.message);
+                          if (verifyResponse.msg === 'user registered successfully') {
+                            console.log('OTP verified successfully:', verifyResponse.msg);
                       
                             // Display success message
                             toast.success('OTP verified successfully!');
@@ -65,17 +65,18 @@ function OtpVerify() {
                       
                             // Redirect user to the home page
                             navigate('/');
+                            window.location.reload();
                           } else {
                             // Handle OTP verification failure
-                            setError(verifyResponse.message || 'OTP verification failed!');
-                            toast.error(verifyResponse.message || 'OTP verification failed!');
+                            setError(verifyResponse.msg || 'OTP verification failed!');
+                            toast.error(verifyResponse.msg || 'OTP verification failed!');
                           }
                         } catch (err) {
                           console.error('Error during OTP verification or login:', err);
                       
                           // Display error message
-                          setError(err.response?.message || 'An error occurred!');
-                          toast.error(err.response?.message || 'An error occurred!');
+                          setError(err.response?.msg || 'An error occurred!');
+                          toast.error(err.response?.msg || 'An error occurred!');
                         }
                       }}
                       
@@ -88,9 +89,9 @@ function OtpVerify() {
                                     Verify
                                 </button>
 
-                                <p className="text-center text-white mt-4">
+                                {/* <p className="text-center text-white mt-4">
                                     Forgot OTP? <a href="#" className="text-primary hover:text-primary-dark">Resend</a>
-                                </p>
+                                </p> */}
                             </Form>
                         </Formik>
 
