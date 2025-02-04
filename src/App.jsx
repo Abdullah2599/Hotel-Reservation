@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './pages/Home'
 import Guestlayout from './layouts/GuestLayouts'
 import Signup from './pages/Signup'
@@ -10,7 +10,7 @@ import Contact from './pages/Contact'
 import Checkout from './pages/Checkout'
 import { apiService } from './services/Apiservice'
 import { jwtDecode } from 'jwt-decode'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
 import OtpVerify from './pages/OtpVerify'
 import Rooms from './components/Rooms'
 import AllRooms from './pages/AllRooms'
@@ -27,7 +27,7 @@ export function useAppContext() {
 
 
 function App() {
-
+  // const navigate = useNavigate();
   const [tempdata, setTempData] = useState(null);
   const [isLogin, setIsLogin] = useState(false)
   const [userDetail, setUserDetail] = useState(localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : {})
@@ -61,6 +61,45 @@ function App() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const token = localStorage.getItem('token');  // Get token from local storage
+
+        if (!token) {
+          console.log('No token found, redirecting to login...');
+          navigate('/login');
+          return;
+        }
+
+        const response = await apiService.postData(
+          'auth/verifyuser',
+          {},
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        console.log('User verified:', response.data);
+      } catch (error) {
+        if (error.response) {
+          console.log('Error verifying user:', error.response.data.message);
+
+          if (error.response.status === 401) {
+            toast.error('Token expired, redirecting to login...');
+            localStorage.removeItem('token');
+            // navigate('/login');
+          }
+        } else {
+          console.error('Network Error:', error.message);
+        }
+      }
+    };
+
+    verifyUser();
+  }, []);
+
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-screen">
